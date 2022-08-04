@@ -1,24 +1,26 @@
 from typing import Any
+
 from fastapi import Depends
 from fastapi.routing import APIRouter
 
-from app.service import joke_service
-from app.schemas import JokeCreate, JokeUpdate, Joke, JokeApi
-
-from app.api.deps import get_db
 from sqlalchemy.orm import Session
 
-router = APIRouter()
+from app.api.deps import get_db
+from app.schemas import JokeCreate, JokeUpdate, Joke, JokeApi
+from app.service import joke_service
+
+
+router = APIRouter(prefix="/joke")
 
 
 @router.get("/", response_model=Joke)
-def get_random_joke(db: Session = Depends(get_db)) -> Any:
+def random_joke(db: Session = Depends(get_db)) -> Any:
     joke = joke_service.get(db=db)
     return joke
 
 
 @router.get("/{name_api}", response_model=JokeApi)
-def get_api_joke(name_api: str) -> Any:
+def api_joke(name_api: str) -> Any:
     joke = joke_service.get_by_api(name_api)
     return joke
 
