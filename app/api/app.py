@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from app.api.endpoints.jokes import router as joke_router
+from app.api.endpoints.joke import router as joke_router
 from app.api.endpoints.mathematic import router as math_router
 from app.api.open_api import get_custom_open_api
 from app.core.config import get_settings

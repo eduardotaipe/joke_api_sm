@@ -21,15 +21,5 @@ class JokeApi(JokeBase):
     text: str
 
 
-class JokeInDBBase(JokeBase):
-    id: int
+class Joke(JokeBase):
     text: str
-    created_at: datetime
-    updated_at: datetime
-
-    class Config:
-        orm_mode = True
-
-
-class Joke(JokeInDBBase):
-    pass

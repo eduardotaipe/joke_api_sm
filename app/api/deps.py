@@ -2,7 +2,7 @@ import re
 
 from typing import Generator, List, Optional
 
-from fastapi import HTTPException, Query
+from fastapi import Query
 
 from app.db.session import SessionLocal
 

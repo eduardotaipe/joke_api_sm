@@ -2,11 +2,15 @@ from typing import Any
 
 from fastapi import Depends
 from fastapi.routing import APIRouter
+from fastapi.responses import Response
 
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db
-from app.schemas import JokeCreate, JokeUpdate, Joke, JokeApi
+from app.schemas import Joke
+from app.schemas import JokeApi
+from app.schemas import JokeCreate
+from app.schemas import JokeUpdate
 from app.service import joke_service
 
 
@@ -25,7 +29,7 @@ def api_joke(name_api: str) -> Any:
     return joke
 
 
-@router.post("/", response_model=Joke)
+@router.post("/", response_model=Joke, status_code=201)
 def create_joke(
     *,
     db: Session = Depends(get_db),
@@ -46,11 +50,11 @@ def update_joke(
     return joke
 
 
-@router.delete("/{id}", response_model=Joke)
+@router.delete("/{id}", response_class=Response)
 def delete_joke(
     *,
     db: Session = Depends(get_db),
     id: int,
 ) -> Any:
-    joke = joke_service.remove(db=db, id=id)
-    return joke
+    joke_service.remove(db=db, id=id)
+    return Response(status_code=204)
