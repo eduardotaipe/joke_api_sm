@@ -1,7 +1,7 @@
 from typing import Any, List
 
-from fastapi.routing import APIRouter
 from fastapi import Depends, Query
+from fastapi.routing import APIRouter
 
 from app.api.deps import get_query_as_numbers_list
 from app.schemas import MathLcm, MathPlusOne

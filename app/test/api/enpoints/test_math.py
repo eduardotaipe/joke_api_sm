@@ -1,3 +1,5 @@
+from starlette.status import HTTP_200_OK
+
 from app.test.conftest import client
 
 
@@ -15,12 +17,12 @@ RESULT_PLUS_ONE = {"result": 13}
 def test_get_lcm_from_numbers_list():
     response = client.get(f"{PATH_LCM}{NUMBERS_QUERY_STRING}")
 
-    assert response.status_code == 200
+    assert response.status_code == HTTP_200_OK
     assert response.json() == RESULT_LCM
 
 
 def test_get_number_plus_one():
     response = client.get(f"{PATH_PLUS_ONE}{NUMBER_QUERY_STRING}")
 
-    assert response.status_code == 200
+    assert response.status_code == HTTP_200_OK
     assert response.json() == RESULT_PLUS_ONE

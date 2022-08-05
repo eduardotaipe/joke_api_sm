@@ -5,6 +5,8 @@ from sqlalchemy.orm import Session
 
 from fastapi import HTTPException
 
+from starlette.status import HTTP_404_NOT_FOUND
+
 from app.models import Joke
 from app.schemas import JokeCreate
 from app.schemas import JokeUpdate
@@ -23,7 +25,10 @@ class JokeService:
     def get(self, db: Session) -> Joke:
         joke = db.query(self.model).order_by(func.random()).first()
         if joke is None:
-            raise HTTPException(status_code=404, detail="Item not found")
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail="Item not found",
+            )
         return JokeResponse(text=joke.text)
 
     def get_by_api(self, name: str):
@@ -31,7 +36,7 @@ class JokeService:
 
         if joke_values is None:
             raise HTTPException(
-                status_code=404,
+                status_code=HTTP_404_NOT_FOUND,
                 detail=f"Joke API type {name} not found.",
             )
 
@@ -46,7 +51,10 @@ class JokeService:
     def get_by_id(self, db: Session, id: int):
         joke: Joke = db.query(self.model).get(id)
         if joke is None:
-            raise HTTPException(status_code=404, detail="Item not found")
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail="Item not found",
+            )
         return joke
 
     def create(self, db: Session, obj: JokeCreate):

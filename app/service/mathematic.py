@@ -3,6 +3,8 @@ from typing import List
 
 from fastapi import HTTPException
 
+from starlette.status import HTTP_404_NOT_FOUND
+
 from app.schemas.mathematic import MathLcm, MathPlusOne
 
 
@@ -10,7 +12,8 @@ class MathService:
     def get_lcm(self, numbers: List[int]) -> MathLcm:
         if numbers is None:
             raise HTTPException(
-                status_code=404, detail="Parameter must be a comma separated integers"
+                status_code=HTTP_404_NOT_FOUND,
+                detail="Parameter must be a comma separated integers",
             )
         lcm = 1
         for number in numbers:
@@ -20,7 +23,8 @@ class MathService:
     def get_number_plus_one(self, number: int) -> MathPlusOne:
         if number is None:
             raise HTTPException(
-                status_code=404, detail="Parameter must be a integers value"
+                status_code=HTTP_404_NOT_FOUND,
+                detail="Parameter must be a integers value",
             )
         number_plus_one = number + 1
         return MathPlusOne(result=number_plus_one)

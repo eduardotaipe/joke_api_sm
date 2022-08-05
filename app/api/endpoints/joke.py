@@ -4,6 +4,9 @@ from fastapi import Depends
 from fastapi.routing import APIRouter
 from fastapi.responses import Response
 
+from starlette.status import HTTP_201_CREATED
+from starlette.status import HTTP_204_NO_CONTENT
+
 from sqlalchemy.orm import Session
 
 from app.api.deps import get_db
@@ -29,7 +32,7 @@ def api_joke(name_api: str) -> Any:
     return joke
 
 
-@router.post("/", response_model=Joke, status_code=201)
+@router.post("/", response_model=Joke, status_code=HTTP_201_CREATED)
 def create_joke(
     *,
     db: Session = Depends(get_db),
@@ -57,4 +60,4 @@ def delete_joke(
     id: int,
 ) -> Any:
     joke_service.remove(db=db, id=id)
-    return Response(status_code=204)
+    return Response(status_code=HTTP_204_NO_CONTENT)
