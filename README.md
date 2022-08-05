@@ -47,3 +47,10 @@ curl -X 'GET' \
   'http://127.0.0.1:8000/api/v1/math/lcm?numbers=15,30,2,4' \
   -H 'accept: application/json'
 ```
+
+## Test
+
+- Run tests.
+```bash
+pytest
+```
