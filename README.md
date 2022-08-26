@@ -17,6 +17,7 @@ pip install -r requirements.txt
 ```
 - Run app.
 ```bash
+export PYTHONPATH=$PWD
 python app/main.py
 ```
 
